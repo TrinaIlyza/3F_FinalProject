@@ -51,9 +51,12 @@ CREATE TABLE services (
 
 CREATE TABLE appointments (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT **
-    therapist_id INT **
-    service_id INT **
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    therapist_id INT,
+    FOREIGN KEY (therapist_id) REFERENCES users(usert_id),
+    service_id INT,
+    FOREIGN KEY (service_id) REFERENCES services(service_id),
     appointment_id DATE,
     start_time TIME,
     end_time TIME,
@@ -64,7 +67,8 @@ CREATE TABLE appointments (
 
 CREATE TABLE payments (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
-    appointment_id INT **
+    appointment_id INT,
+    FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id),
     amount DECIMAL(10,2),
     payment_method ENUM('cash', 'credit_card', 'paypal'),
     payment_status ENUM('paid', 'unpaid', 'refunded'),
@@ -74,7 +78,8 @@ CREATE TABLE payments (
 
 CREATE TABLE availability (
     availability_id INT AUTO_INCREMENT PRIMARY KEY,
-    therapist_id INT **
+    therapist_id INT,
+    FOREIGN KEY (therapist_id) REFERENCES users(usert_id),
     date DATE,
     start_time TIME,
     end_time TIME
@@ -82,8 +87,10 @@ CREATE TABLE availability (
 
 CREATE TABLE reviews (
     review_id INT AUTO_INCREMENT PRIMARY KEY,
-    appointment_id INT **
-    user_id INT **
+    appointment_id INT,
+    FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id),
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     rating INT,
     comment TEXT,
     created_at TIMESTAMP
