@@ -4,12 +4,12 @@ use spa;
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
     phone_number VARCHAR(15) NOT NULL,
-    password VARCHAR(255),
+    password VARCHAR(255) NOT NULL,
     role ENUM('customer','therapist','admin') NOT NULL,
     created_at TIMESTAMP,
-    updated_at TIMESTAMP
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 ALTER TABLE users
@@ -45,62 +45,62 @@ CREATE TABLE services (
     description TEXT NOT NULL,
     duration INT,
     price DECIMAL(10,2),
-    created_at CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE appointments (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
+    user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    therapist_id INT,
-    FOREIGN KEY (therapist_id) REFERENCES users(usert_id),
-    service_id INT,
+    therapist_id INT NOT NULL,
+    FOREIGN KEY (therapist_id) REFERENCES users(user_id),
+    service_id INT NOT NULL,
     FOREIGN KEY (service_id) REFERENCES services(service_id),
-    appointment_id DATE,
-    start_time TIME,
-    end_time TIME,
+    appointment_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
     status ENUM('pending', 'confirmed', 'completed', 'canceled'),
-    created_at TIMESTAMP,
-    updated_at TIMESTAMP   
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP   
 );
 
 CREATE TABLE payments (
     payment_id INT AUTO_INCREMENT PRIMARY KEY,
-    appointment_id INT,
+    appointment_id INT NOT NULL,
     FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id),
-    amount DECIMAL(10,2),
-    payment_method ENUM('cash', 'credit_card', 'paypal'),
-    payment_status ENUM('paid', 'unpaid', 'refunded'),
-    transaction_id VARCHAR(10,2),
-    payment_date TIMESTAMP
+    amount DECIMAL(10,2) NOT NULL,
+    payment_method ENUM('cash', 'credit_card', 'paypal') NOT NULL,
+    payment_status ENUM('paid', 'unpaid', 'refunded') NOT NULL DEFAULT 'unpaid',
+    transaction_id VARCHAR(100),
+    payment_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE availability (
     availability_id INT AUTO_INCREMENT PRIMARY KEY,
-    therapist_id INT,
-    FOREIGN KEY (therapist_id) REFERENCES users(usert_id),
-    date DATE,
-    start_time TIME,
-    end_time TIME
+    therapist_id INT NOT NULL,
+    FOREIGN KEY (therapist_id) REFERENCES users(user_id),
+    date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL
 );
 
 CREATE TABLE reviews (
     review_id INT AUTO_INCREMENT PRIMARY KEY,
-    appointment_id INT,
+    appointment_id INT NOT NULL,
     FOREIGN KEY (appointment_id) REFERENCES appointments(appointment_id),
-    user_id INT,
+    user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    rating INT,
+    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     comment TEXT,
-    created_at TIMESTAMP
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE promotions (
     promo_id INT AUTO_INCREMENT PRIMARY KEY,
-    promo_code VARCHAR(50),
+    promo_code VARCHAR(50) NOT NULL UNIQUE,
     description TEXT,
-    discount_percent DECIMAL(5,2),
+    discount_percent DECIMAL(5,2) NOT NULL CHECK (discount_percent BETWEEN 0 AND 100),
     start_date DATE,
     end_date DATE
 );
