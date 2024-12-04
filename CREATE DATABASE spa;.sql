@@ -1,4 +1,4 @@
- CREATE DATABASE spa;
+CREATE DATABASE spa;
 use spa;
 
 CREATE TABLE users (
@@ -19,7 +19,7 @@ INSERT INTO users (full_name, email, phone_number, role)
 VALUES ('Prim', 'primusr@gmail.com', '099999999', 'admin');
 
 ALTER TABLE users   //timestamp does not become null
-    MODIFY COLUMN created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
+MODIFY COLUMN created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 INSERT INTO users (full_name, email, phone_number, role)
 VALUES ('Zayasha Pastor', 'zpastor@gmail.com', '09150324709', 'therapist');
