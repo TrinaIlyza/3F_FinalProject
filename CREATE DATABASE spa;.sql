@@ -18,7 +18,7 @@ ALTER TABLE users
 INSERT INTO users (full_name, email, phone_number, role)
 VALUES ('Prim', 'primusr@gmail.com', '099999999', 'admin');
 
-ALTER TABLE users   //timestamp does not become null
+ALTER TABLE users   
 MODIFY COLUMN created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 INSERT INTO users (full_name, email, phone_number, role)

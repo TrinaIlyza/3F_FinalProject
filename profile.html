@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Settings</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            background: linear-gradient(135deg, #d5e8f8, #f1f9ff);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .profile-card {
+            width: 400px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 25px;
+            text-align: center;
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .header-bar i {
+            font-size: 1.2rem;
+            color: #555;
+            cursor: pointer;
+        }
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #e3e3e3;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-avatar input {
+            display: none;
+        }
+        .upload-icon {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .info-container {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .info-container label {
+            display: block;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #444;
+        }
+        .info-container span,
+        .info-container input {
+            display: block;
+            width: 100%;
+            font-size: 0.85rem;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .info-container input {
+            display: none;
+        }
+        .btn-save {
+            display: none;
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            color: #fff;
+            background: #007BFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <div class="header-bar">
+            <i class="fas fa-arrow-left" onclick="goBack()"></i>
+            <i class="fas fa-edit edit-icon"></i>
+        </div>
+        <div class="profile-avatar">
+            <img id="profile-pic" src="images/P__6_-removebg-preview 1.png" alt="Profile Picture">
+            <input type="file" id="upload-photo" accept="image/*">
+            <button class="upload-icon" onclick="document.getElementById('upload-photo').click();">
+                <i class="fas fa-camera"></i>
+            </button>
+        </div>
+        <div class="info-container">
+            <div>
+                <label for="username-edit">Username</label>
+                <span id="username-view">Sophia Kaisa Dela Cruz</span>
+                <input type="text" id="username-edit" value="Sophia Kaisa Dela Cruz">
+            </div>
+            <div>
+                <label for="email-edit">Email</label>
+                <span id="email-view">SK.Delacruz@gmail.com</span>
+                <input type="email" id="email-edit" value="SK.Delacruz@gmail.com">
+            </div>
+            <div>
+                <label for="phone-edit">Phone</label>
+                <span id="phone-view">+63 0123456789</span>
+                <input type="tel" id="phone-edit" value="+63 0123456789">
+            </div>
+            <div>
+                <label for="dob-edit">Date of Birth</label>
+                <span id="dob-view">March 27, 1989</span>
+                <input type="date" id="dob-edit" value="1989-03-27">
+            </div>
+            <div>
+                <label for="address-edit">Address</label>
+                <span id="address-view">6391 Nancayasan Urdaneta City</span>
+                <input type="text" id="address-edit" value="6391 Nancayasan Urdaneta City">
+            </div>
+            <div>
+                <label for="account-edit">Account</label>
+                <span id="account-view">Premium</span>
+                <input type="text" id="account-edit" value="Premium">
+            </div>
+        </div>
+        <button class="btn-save">Save</button>
+    </div>
+    <script>
+        const editIcon = document.querySelector('.edit-icon');
+        const saveButton = document.querySelector('.btn-save');
+        const viewElements = document.querySelectorAll('span');
+        const editInputs = document.querySelectorAll('input:not([type="file"])');
+
+        editIcon.addEventListener('click', () => {
+            viewElements.forEach(el => (el.style.display = 'none'));
+            editInputs.forEach(input => (input.style.display = 'block'));
+            saveButton.style.display = 'block';
+            editIcon.style.display = 'none';
+        });
+
+        saveButton.addEventListener('click', () => {
+            editInputs.forEach(input => {
+                const viewId = input.id.replace('-edit', '-view');
+                document.getElementById(viewId).textContent = input.value;
+                input.style.display = 'none';
+            });
+            viewElements.forEach(el => (el.style.display = 'block'));
+            saveButton.style.display = 'none';
+            editIcon.style.display = 'block';
+
+            alert('Your changes have been saved!');
+        });
+
+        document.getElementById('upload-photo').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('profile-pic').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

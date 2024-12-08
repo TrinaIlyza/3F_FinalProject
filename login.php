@@ -157,7 +157,7 @@ $conn->close();
 
     <a href="login.php" class="login-button">Login</a>
 
-    <section class="hero-section h-screen bg-cover bg-center" style="background-image: url('img/background.jpg');">
+    <section class="hero-section h-screen bg-cover bg-center" style="background-image: url('img/bg.jpg');">
         <div class="hero-content max-w-4xl mx-auto text-center py-36">
             <h1>Your Wellness Starts Here</h1>
             <p class="mt-4">Relax, rejuvenate, and refresh with our top-rated spa services.</p>

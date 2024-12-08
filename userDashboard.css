@@ -1,0 +1,133 @@
+body {
+    font-family: 'Verdana', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eaeaea;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.dashboard-header {
+    background: linear-gradient(90deg, #28a745, #218838);
+    color: #ffffff;
+    padding: 25px 15px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.dashboard-nav {
+    background-color: #f0f0f0;
+    border-bottom: 2px solid #ccc;
+}
+
+.dashboard-nav ul {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 10px 0;
+    list-style-type: none;
+}
+
+.dashboard-nav li a {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #444444;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dashboard-nav li a:hover {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.dashboard-main {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.dashboard-section {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.dashboard-section h2 {
+    font-size: 1.2em;
+    color: #28a745;
+    margin: 0 0 10px 0;
+}
+
+.appointment-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 6px;
+    background: #f7f7f7;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.appointment-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-card p {
+    margin: 8px 0;
+    font-size: 0.9em;
+    color: #555;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.dashboard-main .dashboard-section {
+    display: grid;
+    gap: 15px;
+}
+
+@media (min-width: 768px) {
+    .dashboard-main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .appointment-card {
+        flex: 1 1 auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .dashboard-main {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .appointment-card {
+        margin-bottom: 0;
+    }
+}
