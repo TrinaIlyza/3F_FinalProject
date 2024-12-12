@@ -2,7 +2,7 @@
 require 'database.php';
 
 $services = [];
-$sql = "SELECT * FROM services"; 
+$sql = "SELECT * FROM users"; 
 $result = $conn->query($sql);
 
 if ($result && $result->num_rows > 0) {

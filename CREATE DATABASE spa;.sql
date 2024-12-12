@@ -1,5 +1,5 @@
-CREATE DATABASE spa;
-use spa;
+CREATE DATABASE finalproj;
+use finalproj;
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -37,7 +37,13 @@ INSERT INTO users (full_name, email, phone_number, role)
 VALUES ('Aila Marie Nieva', 'amnieva@gmail.com', '09666666666', 'customer');
 
 INSERT INTO users (full_name, email, phone_number, role)
-VALUES ('Kyra Joey Pastor', 'kjpastor@gmail.com', '09352857910', 'admin');
+VALUES ('Chubby', 'chubby@gmail.com', '09776878546', 'admin');
+
+INSERT INTO users (full_name, email, phone_number, role)
+VALUES ('Shaggy', 'shaggy@gmail.com', '09778901456', 'therapist');
+
+INSERT INTO users (full_name, email, phone_number, role)
+VALUES ('Jupiter S.', 'jupiterss@gmail.com', '09999999999', 'therapist');
 
 CREATE TABLE services (
     service_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,6 +54,9 @@ CREATE TABLE services (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+INSERT INTO services (service_name, description, duration, price)
+VALUES ('Relaxation Massage', 'A full-body massage designed to relieve tension, reduce stress, and promote relaxation. Using a blend of soothing oils and gentle techniques, this massage targets key areas like the neck, shoulders, and lower back for an overall sense of well-being.', '60', '1000');
 
 CREATE TABLE appointments (
     appointment_id INT AUTO_INCREMENT PRIMARY KEY,
